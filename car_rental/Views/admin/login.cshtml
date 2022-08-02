@@ -1,0 +1,14 @@
+﻿@using (Html.BeginForm())
+{
+    @Html.Label("User-Name:")
+    @Html.TextBox("name")
+    @Html.ValidationMessage("name")
+    <br>
+    @Html.Label("Password:")
+    @Html.Password("pass")
+    @Html.ValidationMessage("pass")<br>
+
+
+
+    <button>Submit</button>
+}

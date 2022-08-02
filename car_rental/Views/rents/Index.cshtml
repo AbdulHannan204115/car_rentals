@@ -1,0 +1,52 @@
+﻿@model IEnumerable<car_rental.Models.rent>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Rent-Date")
+        </th>
+        <th>
+            @Html.DisplayName("Admin-Name")
+        </th>
+        <th>
+            @Html.DisplayName("Car-Name")
+        </th>
+        <th>
+            @Html.DisplayName("Client-Name")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.rent_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.admin.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.car.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.client.name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.rent_id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.rent_id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.rent_id })
+            </td>
+        </tr>
+    }
+
+</table>
+<button>@Html.ActionLink("Create", "create")</button>
+<button>@Html.ActionLink("LOGOUT", "logout")</button>

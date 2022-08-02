@@ -1,0 +1,29 @@
+﻿@model IEnumerable<car_rental.Models.car>
+<table border="1" width="800px">
+    <tr>
+        <th>ID:</th>
+        <th>Name:</th>
+        <th>Model:</th>
+        <th>Registration-Year:</th>
+        
+    </tr>
+    @{
+
+        foreach (var item in Model)
+        {
+        <tr>
+            <td> @item.car_id</td>
+            <td> @item.name</td>
+            <td> @item.model</td>
+            <td> @item.regitration_year</td>
+
+            <td>@Html.ActionLink("Edit", "edit", new { id = item.car_id })</td>
+            <td>@Html.ActionLink("Delete", "delete", new { id = item.car_id })</td>
+            <td>@Html.ActionLink("Details", "detail", new { id = item.car_id })</td>
+        </tr>
+        }
+
+    }
+</table>
+<button>@Html.ActionLink("Create", "create")</button>
+<button>@Html.ActionLink("LOGOUT", "logout")</button>

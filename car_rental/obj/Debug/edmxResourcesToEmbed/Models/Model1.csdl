@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Rent_carModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="admin">
+    <Key>
+      <PropertyRef Name="admin_id" />
+    </Key>
+    <Property Name="admin_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="cnic" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="user_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="confirm_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="rents" Relationship="Self.FK_rent_admin" FromRole="admin" ToRole="rent" />
+  </EntityType>
+  <EntityType Name="car">
+    <Key>
+      <PropertyRef Name="car_id" />
+    </Key>
+    <Property Name="car_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="model" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="regitration_year" Type="Int32" />
+    <NavigationProperty Name="rents" Relationship="Self.FK_rent_car" FromRole="car" ToRole="rent" />
+  </EntityType>
+  <EntityType Name="client">
+    <Key>
+      <PropertyRef Name="client_id" />
+    </Key>
+    <Property Name="client_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="cnic" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="rents" Relationship="Self.FK_rent_client" FromRole="client" ToRole="rent" />
+  </EntityType>
+  <EntityType Name="rent">
+    <Key>
+      <PropertyRef Name="rent_id" />
+    </Key>
+    <Property Name="rent_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="admin_id" Type="Int32" Nullable="false" />
+    <Property Name="car_id" Type="Int32" Nullable="false" />
+    <Property Name="client_id" Type="Int32" Nullable="false" />
+    <Property Name="rent_date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="admin" Relationship="Self.FK_rent_admin" FromRole="rent" ToRole="admin" />
+    <NavigationProperty Name="car" Relationship="Self.FK_rent_car" FromRole="rent" ToRole="car" />
+    <NavigationProperty Name="client" Relationship="Self.FK_rent_client" FromRole="rent" ToRole="client" />
+  </EntityType>
+  <Association Name="FK_rent_admin">
+    <End Role="admin" Type="Self.admin" Multiplicity="1" />
+    <End Role="rent" Type="Self.rent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="admin">
+        <PropertyRef Name="admin_id" />
+      </Principal>
+      <Dependent Role="rent">
+        <PropertyRef Name="admin_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rent_car">
+    <End Role="car" Type="Self.car" Multiplicity="1" />
+    <End Role="rent" Type="Self.rent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="car">
+        <PropertyRef Name="car_id" />
+      </Principal>
+      <Dependent Role="rent">
+        <PropertyRef Name="car_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rent_client">
+    <End Role="client" Type="Self.client" Multiplicity="1" />
+    <End Role="rent" Type="Self.rent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="client_id" />
+      </Principal>
+      <Dependent Role="rent">
+        <PropertyRef Name="client_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="context" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="admins" EntityType="Self.admin" />
+    <EntitySet Name="cars" EntityType="Self.car" />
+    <EntitySet Name="clients" EntityType="Self.client" />
+    <EntitySet Name="rents" EntityType="Self.rent" />
+    <AssociationSet Name="FK_rent_admin" Association="Self.FK_rent_admin">
+      <End Role="admin" EntitySet="admins" />
+      <End Role="rent" EntitySet="rents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rent_car" Association="Self.FK_rent_car">
+      <End Role="car" EntitySet="cars" />
+      <End Role="rent" EntitySet="rents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rent_client" Association="Self.FK_rent_client">
+      <End Role="client" EntitySet="clients" />
+      <End Role="rent" EntitySet="rents" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

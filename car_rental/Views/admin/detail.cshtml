@@ -1,0 +1,58 @@
+﻿@model car_rental.Models.admin
+
+@{
+    ViewBag.Title = "detail";
+}
+
+<h2>detail</h2>
+
+<div>
+    <h4>admin</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cnic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cnic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.confirm_password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.confirm_password)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.admin_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

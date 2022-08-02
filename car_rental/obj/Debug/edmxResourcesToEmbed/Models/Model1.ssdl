@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Rent_carModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="admin">
+    <Key>
+      <PropertyRef Name="admin_id" />
+    </Key>
+    <Property Name="admin_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="cnic" Type="nchar" MaxLength="20" />
+    <Property Name="user_name" Type="varchar" MaxLength="50" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+    <Property Name="confirm_password" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="car">
+    <Key>
+      <PropertyRef Name="car_id" />
+    </Key>
+    <Property Name="car_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="model" Type="nchar" MaxLength="50" />
+    <Property Name="regitration_year" Type="int" />
+  </EntityType>
+  <EntityType Name="client">
+    <Key>
+      <PropertyRef Name="client_id" />
+    </Key>
+    <Property Name="client_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="cnic" Type="nchar" MaxLength="20" />
+    <Property Name="address" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="rent">
+    <Key>
+      <PropertyRef Name="rent_id" />
+    </Key>
+    <Property Name="rent_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="admin_id" Type="int" Nullable="false" />
+    <Property Name="car_id" Type="int" Nullable="false" />
+    <Property Name="client_id" Type="int" Nullable="false" />
+    <Property Name="rent_date" Type="date" />
+  </EntityType>
+  <Association Name="FK_rent_admin">
+    <End Role="admin" Type="Self.admin" Multiplicity="1" />
+    <End Role="rent" Type="Self.rent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="admin">
+        <PropertyRef Name="admin_id" />
+      </Principal>
+      <Dependent Role="rent">
+        <PropertyRef Name="admin_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rent_car">
+    <End Role="car" Type="Self.car" Multiplicity="1" />
+    <End Role="rent" Type="Self.rent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="car">
+        <PropertyRef Name="car_id" />
+      </Principal>
+      <Dependent Role="rent">
+        <PropertyRef Name="car_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rent_client">
+    <End Role="client" Type="Self.client" Multiplicity="1" />
+    <End Role="rent" Type="Self.rent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="client_id" />
+      </Principal>
+      <Dependent Role="rent">
+        <PropertyRef Name="client_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Rent_carModelStoreContainer">
+    <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="car" EntityType="Self.car" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="rent" EntityType="Self.rent" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_rent_admin" Association="Self.FK_rent_admin">
+      <End Role="admin" EntitySet="admin" />
+      <End Role="rent" EntitySet="rent" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rent_car" Association="Self.FK_rent_car">
+      <End Role="car" EntitySet="car" />
+      <End Role="rent" EntitySet="rent" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rent_client" Association="Self.FK_rent_client">
+      <End Role="client" EntitySet="client" />
+      <End Role="rent" EntitySet="rent" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

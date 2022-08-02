@@ -1,0 +1,31 @@
+﻿@model IEnumerable<car_rental.Models.admin>
+<table border="1" width="800px">
+    <tr>
+        <th>ID:</th>
+        <th>Name:</th>
+        <th>CNIC:</th>
+        <th>User-Name:</th>
+        <th>Password:</th>
+        <th>Confirm-Password:</th>
+    </tr>
+    @{
+
+        foreach (var item in Model)
+        {
+        <tr>
+            <td> @item.admin_id</td>
+            <td> @item.name</td>
+            <td> @item.cnic</td>
+            <td> @item.user_name</td>
+            <td> @item.password</td>
+            <td> @item.confirm_password</td>
+            <td>@Html.ActionLink("Edit", "edit", new { id = item.admin_id })</td>
+            <td>@Html.ActionLink("Delete", "delete", new { id = item.admin_id })</td>
+            <td>@Html.ActionLink("Details", "detail", new { id = item.admin_id })</td>
+        </tr>
+        }
+
+    }
+</table>
+<button>@Html.ActionLink("Create","create")</button>
+<button>@Html.ActionLink("LOGOUT", "logout")</button>
